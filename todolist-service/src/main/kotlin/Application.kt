@@ -16,10 +16,14 @@ fun Application.module() {
 
 fun Application.moduleWithDependencies(testing: Boolean = false) {
     routing {
-        get("/") {
-            call.respondText("Hello, world!", contentType = ContentType.Text.Plain)
-        }
+        root()
+    }
+}
 
+fun Routing.root() {
+
+    get("/") {
+        call.respondText("Hello, world!", contentType = ContentType.Text.Plain)
     }
 }
 

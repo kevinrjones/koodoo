@@ -38,3 +38,6 @@ class ApplicationTest {
     }
 }
 ```
+
+## Modules
+1. Move routing to a module
