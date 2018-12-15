@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolistservice/first.todolistservice.iml" filepath="$PROJECT_DIR$/.idea/modules/todolistservice/first.todolistservice.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolistservice/first.todolistservice.main.iml" filepath="$PROJECT_DIR$/.idea/modules/todolistservice/first.todolistservice.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolistservice/first.todolistservice.test.iml" filepath="$PROJECT_DIR$/.idea/modules/todolistservice/first.todolistservice.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/todolist.iml" filepath="$PROJECT_DIR$/todolist.iml" />
+    </modules>
+  </component>
+</project>
