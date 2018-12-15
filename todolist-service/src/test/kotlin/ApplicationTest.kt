@@ -15,7 +15,7 @@ class ApplicationTest {
         testApp {
             with(handleRequest(HttpMethod.Get, "/")) {
                 assertEquals(HttpStatusCode.OK, response.status())
-                assertEquals("Hello,  world!", response.content)
+                assertEquals("Hello, world!", response.content)
             }
         }
     }
