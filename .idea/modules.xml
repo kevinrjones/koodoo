@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolistservice/first.todolistservice.iml" filepath="$PROJECT_DIR$/.idea/modules/todolistservice/first.todolistservice.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolistservice/first.todolistservice.main.iml" filepath="$PROJECT_DIR$/.idea/modules/todolistservice/first.todolistservice.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolistservice/first.todolistservice.test.iml" filepath="$PROJECT_DIR$/.idea/modules/todolistservice/first.todolistservice.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-service/first.todolist-service.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-service/first.todolist-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-service/first.todolist-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-service/first.todolist-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-service/first.todolist-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-service/first.todolist-service.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/todolist.iml" filepath="$PROJECT_DIR$/todolist.iml" />
     </modules>
   </component>

@@ -1,4 +1,4 @@
 
 rootProject.name = "todolist"
 
-include("todolistservice")
+include("todolist-service")
