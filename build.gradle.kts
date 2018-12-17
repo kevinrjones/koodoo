@@ -2,6 +2,7 @@ allprojects {
     repositories {
         jcenter()
         mavenLocal()
+        maven { url = uri("https://kotlin.bintray.com/ktor") }
     }
 }
 
