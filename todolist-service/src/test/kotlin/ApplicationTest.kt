@@ -15,29 +15,64 @@ import org.junit.Test
 class ApplicationTest {
 
     @Test
-    fun testRequest() {
+    fun testGetTodos() {
         testApp {
-            with(handleRequest(HttpMethod.Get, "/todos")) {
+            // can handle tests this way...
+            handleRequest(HttpMethod.Get, "/todos").apply {
                 response.status().`should be`(HttpStatusCode.OK)
             }
 
+            // or using with
             with(handleRequest(HttpMethod.Get, "/todos")) {
                 response.content
                         .shouldNotBeNull()
-                        .shouldContain("Title")
+                        .shouldContain("database")
             }
 
             with(handleRequest(HttpMethod.Get, "/todos")) {
                 val mapper = jacksonObjectMapper()
                 val item = mapper.readValue<ToDoItem>(response.content!!)
-                item.title.shouldBeEqualTo("Title")
+                item.title.shouldBeEqualTo("Add database processing")
+            }
+        }
+    }
+
+    @Test
+    fun testCreatingTodos() {
+        testApp {
+
+            with(handleRequest(HttpMethod.Post, "/todos")) {
+                response.status().`should be`(HttpStatusCode.Created)
+            }
+        }
+    }
+
+    @Test
+    fun testUpdatingTodos() {
+        testApp {
+
+
+            with(handleRequest(HttpMethod.Put, "/todos/1")) {
+                response.status().`should be`(HttpStatusCode.NoContent)
+            }
+        }
+    }
+
+    @Test
+    fun testDeletingTodos() {
+        testApp {
+
+            with(handleRequest(HttpMethod.Delete, "/todos/1")) {
+                response.status().`should be`(HttpStatusCode.NoContent)
             }
 
-
+//            with(handleRequest(HttpMethod.Delete, "/todos/")) {
+//                response.status().`should be`(HttpStatusCode.NotFound)
+//            }
         }
     }
 
     private fun testApp(callback: TestApplicationEngine.() -> Unit) {
-        withTestApplication({moduleWithDependencies(true)}) {callback()}
+        withTestApplication({ moduleWithDependencies(true) }) { callback() }
     }
 }

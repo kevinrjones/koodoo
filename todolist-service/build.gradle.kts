@@ -5,6 +5,7 @@ val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
 val moshi_version: String by project
+val spek_version: String by project
 
 plugins {
     application
@@ -32,7 +33,17 @@ dependencies {
     compile("io.ktor:ktor-server-host-common:$ktor_version")
     compile("io.ktor:ktor-auth:$ktor_version")
     compile("io.ktor:ktor-auth-jwt:$ktor_version")
+
     testCompile("io.ktor:ktor-server-tests:$ktor_version")
     testCompile("org.amshove.kluent:kluent:1.44")
+    testCompile("org.spekframework.spek2:spek-dsl-jvm:$spek_version")
+    testCompile("io.ktor:ktor-server-test-host:$ktor_version")
+
+    testRuntime("org.spekframework.spek2:spek-runner-junit5:$spek_version")
 }
 
+tasks.test {
+    useJUnitPlatform {
+        includeEngines ("spek2")
+    }
+}
