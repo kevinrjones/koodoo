@@ -1,15 +1,25 @@
 package com.knowledgespike
 
 import com.fasterxml.jackson.databind.SerializationFeature
-import io.ktor.application.*
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer
+import io.ktor.application.Application
+import io.ktor.application.call
+import io.ktor.application.install
+import io.ktor.application.log
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
-import io.ktor.response.*
-import io.ktor.routing.*
-import io.ktor.jackson.jackson
-import java.util.*
-import com.fasterxml.jackson.databind.util.StdDateFormat
+import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
+import io.ktor.jackson.jackson
+import io.ktor.request.uri
+import io.ktor.response.respond
+import io.ktor.response.respondRedirect
+import io.ktor.response.respondText
+import io.ktor.routing.*
+import java.time.LocalDate
 
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
@@ -22,16 +32,41 @@ fun Application.module() {
 
 val todo = ToDoItem("Add database processing",
         "Add backend support to this code",
-        "Kevin", Date(2018, 12, 18),
+        "Kevin",
+        LocalDate.of(2018, 12, 18),
         Importance.HIGH)
 
 fun Application.moduleWithDependencies(testing: Boolean = false) {
 
-    install(StatusPages)
+    install(StatusPages) {
+        // examples - see isDev and isProd code below
+        // see application.conf
+
+        // set environment variable KTOR_ENV=prod to run in production
+        when {
+            isDev -> {
+                this.exception<Throwable> { e ->
+                    call.respondText(e.localizedMessage, ContentType.Text.Plain, HttpStatusCode.InternalServerError)
+                    throw e
+                }
+            }
+
+            isProd -> {
+
+            }
+        }
+        
+        // just an example - need to add proper unauthorized
+        status(HttpStatusCode.Unauthorized) {
+            log.info("Unauthorized: ${call.request.uri}")
+            return@status call.respondRedirect("/invalid", permanent = false)
+
+        }
+    }
+
     install(ContentNegotiation) {
         jackson {
             enable(SerializationFeature.INDENT_OUTPUT)
-            dateFormat = StdDateFormat()
             disableDefaultTyping()
         }
     }
@@ -42,10 +77,16 @@ fun Application.moduleWithDependencies(testing: Boolean = false) {
     }
 }
 
+
+val Application.envKind get() = environment.config.property("ktor.environment").getString()
+val Application.isDev get() = envKind == "dev"
+val Application.isTest get() = envKind == "test"
+val Application.isProd get() = envKind != "dev" && envKind != "test"
+
 fun Routing.todoItems() {
 
     get("/todos") {
-        call.respond(todo)
+        call.respond(listOf(todo, todo))
     }
 
     get("/todos/{id}") {
@@ -67,7 +108,14 @@ fun Routing.todoItems() {
 }
 
 
-data class ToDoItem(val title: String, val details: String, val assignedTo: String, val dueDate: Date, val importance: Importance)
+data class ToDoItem(
+        val title: String,
+        val details: String,
+        val assignedTo: String,
+        @JsonSerialize(using = ToStringSerializer::class)
+        @JsonDeserialize(using = LocalDateDeserializer::class)
+        val dueDate: LocalDate,
+        val importance: Importance)
 
 enum class Importance {
     LOW, MEDIUM, HIGH
