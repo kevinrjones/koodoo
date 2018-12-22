@@ -2,10 +2,15 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-service/first.todolist-service.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-service/first.todolist-service.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-service/first.todolist-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-service/first.todolist-service.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-service/first.todolist-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-service/first.todolist-service.test.iml" />
-      <module fileurl="file://$PROJECT_DIR$/todolist.iml" filepath="$PROJECT_DIR$/todolist.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.iml" filepath="$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.main.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.test.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-service/com.knowledgespike.todolist-service.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-service/com.knowledgespike.todolist-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-service/com.knowledgespike.todolist-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-service/com.knowledgespike.todolist-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-service/com.knowledgespike.todolist-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-service/com.knowledgespike.todolist-service.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.test.iml" />
     </modules>
   </component>
 </project>
