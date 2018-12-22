@@ -6,6 +6,8 @@
       <module name="com.knowledgespike.todolist-restapi.test" target="1.8" />
       <module name="com.knowledgespike.todolist-service.main" target="1.8" />
       <module name="com.knowledgespike.todolist-service.test" target="1.8" />
+      <module name="com.knowledgespike.todolist-shared.main" target="1.8" />
+      <module name="com.knowledgespike.todolist-shared.test" target="1.8" />
       <module name="com.knowledgespike.todolist.main" target="1.8" />
       <module name="com.knowledgespike.todolist.test" target="1.8" />
       <module name="first.todolist-restapi.main" target="1.8" />

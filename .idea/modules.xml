@@ -9,6 +9,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-service/com.knowledgespike.todolist-service.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-service/com.knowledgespike.todolist-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-service/com.knowledgespike.todolist-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-service/com.knowledgespike.todolist-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-service/com.knowledgespike.todolist-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-service/com.knowledgespike.todolist-service.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-shared/com.knowledgespike.todolist-shared.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-shared/com.knowledgespike.todolist-shared.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-shared/com.knowledgespike.todolist-shared.main.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-shared/com.knowledgespike.todolist-shared.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-shared/com.knowledgespike.todolist-shared.test.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-shared/com.knowledgespike.todolist-shared.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.test.iml" />
     </modules>

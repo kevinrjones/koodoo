@@ -26,7 +26,7 @@ allprojects {
     group = "com.knowledgespike"
     version = "0.0.1"
 
-    apply (plugin="org.jetbrains.kotlin.jvm")
+    apply(plugin = "org.jetbrains.kotlin.jvm")
 
     repositories {
         jcenter()
@@ -35,20 +35,20 @@ allprojects {
     }
 
     dependencies {
-        compile("ch.qos.logback:logback-classic:$logback_version")
-        compile("com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version")
-        compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310$jackson_version")
-        compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
+        implementation("ch.qos.logback:logback-classic:$logback_version")
+        implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jackson_version")
+        implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jackson_version")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
 
-        testCompile("org.amshove.kluent:kluent:$kluent_version")
-        testCompile("org.spekframework.spek2:spek-dsl-jvm:$spek_version")
+        testImplementation("org.amshove.kluent:kluent:$kluent_version")
+        testImplementation("org.spekframework.spek2:spek-dsl-jvm:$spek_version")
 
         testRuntime("org.spekframework.spek2:spek-runner-junit5:$spek_version")
     }
 
     tasks.withType<Test> {
         useJUnitPlatform {
-            includeEngines ("spek2")
+            includeEngines("spek2")
         }
     }
 }
@@ -58,13 +58,21 @@ subprojects {
     version = "1.0"
 }
 
-project(":todolist-restapi") {
-
-    dependencies {
-        "implementation"(project(":todolist-service"))
-    }
+project(":todolist-shared") {
 }
 
 project(":todolist-service") {
+    dependencies {
+        implementation(project(":todolist-shared"))
+    }
 }
+
+project(":todolist-restapi") {
+
+    dependencies {
+        implementation(project(":todolist-service"))
+        implementation(project(":todolist-shared"))
+    }
+}
+
 
