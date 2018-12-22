@@ -1,10 +1,8 @@
-package com.knowledgespike
+package com.knowledgespike.todolist
 
 import com.fasterxml.jackson.databind.SerializationFeature
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize
-import com.fasterxml.jackson.databind.annotation.JsonSerialize
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer
+import com.knowledgespike.todolist.shared.Importance
+import com.knowledgespike.todolist.shared.ToDoItem
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
@@ -108,15 +106,3 @@ fun Routing.todoItems() {
 }
 
 
-data class ToDoItem(
-        val title: String,
-        val details: String,
-        val assignedTo: String,
-        @JsonSerialize(using = ToStringSerializer::class)
-        @JsonDeserialize(using = LocalDateDeserializer::class)
-        val dueDate: LocalDate,
-        val importance: Importance)
-
-enum class Importance {
-    LOW, MEDIUM, HIGH
-}

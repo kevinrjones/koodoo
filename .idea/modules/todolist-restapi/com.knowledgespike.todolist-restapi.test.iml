@@ -101,8 +101,8 @@
     <orderEntry type="library" name="Gradle: org.mortbay.jetty.alpn:alpn-boot:8.1.12.v20180117" level="project" />
     <orderEntry type="library" name="Gradle: junit:junit:4.12" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.nhaarman.mockitokotlin2:mockito-kotlin:2.0.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.spekframework.spek2:spek-runtime-common:2.0.0-rc.1" level="project" />
     <orderEntry type="library" name="Gradle: io.ktor:ktor-client-core:1.0.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.spekframework.spek2:spek-runtime-common:2.0.0-rc.1" level="project" />
     <orderEntry type="library" name="Gradle: io.ktor:ktor-http:1.0.0" level="project" />
     <orderEntry type="library" name="Gradle: io.ktor:ktor-utils:1.0.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlinx:kotlinx-coroutines-io:0.1.0" level="project" />
@@ -144,10 +144,10 @@
     <orderEntry type="library" name="Gradle: org.apache.httpcomponents:httpcore:4.4.6" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: io.github.classgraph:classgraph:4.0.6" level="project" />
     <orderEntry type="library" name="Gradle: commons-logging:commons-logging:1.2" level="project" />
-    <orderEntry type="library" name="Gradle: javax.servlet:javax.servlet-api:3.1.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.platform:junit-platform-commons:1.1.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.apiguardian:apiguardian-api:1.0.0" level="project" />
+    <orderEntry type="library" name="Gradle: javax.servlet:javax.servlet-api:3.1.0" level="project" />
     <orderEntry type="library" name="Gradle: org.eclipse.jetty:jetty-continuation:9.4.11.v20180605" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.apiguardian:apiguardian-api:1.0.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.opentest4j:opentest4j:1.0.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: net.bytebuddy:byte-buddy:1.9.0" level="project" />
     <orderEntry type="module" module-name="com.knowledgespike.todolist-shared.main" />

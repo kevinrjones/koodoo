@@ -1,15 +1,18 @@
-package com.knowledgespike
+package com.knowledgespike.todolist
+
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.knowledgespike.todolist.shared.ToDoItem
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.TestApplicationEngine
 import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.withTestApplication
-import org.amshove.kluent.*
-
-
+import org.amshove.kluent.`should be`
+import org.amshove.kluent.shouldBeEqualTo
+import org.amshove.kluent.shouldContain
+import org.amshove.kluent.shouldNotBeNull
 import org.junit.Test
 
 class ApplicationTest {
