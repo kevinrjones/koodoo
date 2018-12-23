@@ -1,8 +1,8 @@
 package com.knowledgespike.todolist
 
 import com.fasterxml.jackson.databind.SerializationFeature
-import com.knowledgespike.todolist.shared.Importance
-import com.knowledgespike.todolist.shared.ToDoItem
+import com.knowledgespike.todolist.shared.TodoService
+import com.knowledgespike.todolist.shared.TodoServiceImpl
 import io.ktor.application.Application
 import io.ktor.application.call
 import io.ktor.application.install
@@ -13,28 +13,36 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.jackson.jackson
 import io.ktor.request.uri
-import io.ktor.response.respond
 import io.ktor.response.respondRedirect
 import io.ktor.response.respondText
-import io.ktor.routing.*
-import java.time.LocalDate
+import io.ktor.routing.routing
+import io.ktor.server.engine.commandLineEnvironment
+import io.ktor.server.engine.embeddedServer
+import io.ktor.server.netty.Netty
+import org.koin.dsl.module.module
+import org.koin.ktor.ext.inject
+import org.koin.standalone.StandAloneContext.startKoin
+import todoItems
+
+val todoAppAppModule = module {
+    single<TodoService> { TodoServiceImpl(get()) }
+    single<TodoListRepository> { TodoListRepositorySql() }
+}
 
 
-fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
+fun main(args: Array<String>): Unit  {
+    startKoin(listOf(todoAppAppModule))
+    embeddedServer(Netty, commandLineEnvironment(args)).start()
+}
 
 @Suppress("unused") // Referenced in application.conf
 fun Application.module() {
 
-    moduleWithDependencies(false)
+    val todoService: TodoService by inject()
+    moduleWithDependencies(todoService)
 }
 
-val todo = ToDoItem("Add database processing",
-        "Add backend support to this code",
-        "Kevin",
-        LocalDate.of(2018, 12, 18),
-        Importance.HIGH)
-
-fun Application.moduleWithDependencies(testing: Boolean = false) {
+fun Application.moduleWithDependencies(todoService: TodoService) {
 
     install(StatusPages) {
         // examples - see isDev and isProd code below
@@ -49,11 +57,18 @@ fun Application.moduleWithDependencies(testing: Boolean = false) {
                 }
             }
 
+            isTest -> {
+                this.exception<Throwable> { e ->
+                    call.response.status(HttpStatusCode.InternalServerError)
+                    throw e
+                }
+            }
+
             isProd -> {
 
             }
         }
-        
+
         // just an example - need to add proper unauthorized
         status(HttpStatusCode.Unauthorized) {
             log.info("Unauthorized: ${call.request.uri}")
@@ -69,9 +84,8 @@ fun Application.moduleWithDependencies(testing: Boolean = false) {
         }
     }
 
-
     routing {
-        todoItems()
+        todoItems(todoService)
     }
 }
 
@@ -81,28 +95,6 @@ val Application.isDev get() = envKind == "dev"
 val Application.isTest get() = envKind == "test"
 val Application.isProd get() = envKind != "dev" && envKind != "test"
 
-fun Routing.todoItems() {
 
-    get("/todos") {
-        call.respond(listOf(todo, todo))
-    }
-
-    get("/todos/{id}") {
-        val id = call.parameters["id"]
-        call.respond(todo)
-    }
-
-    post("/todos") {
-        call.response.status(HttpStatusCode.Created)
-    }
-
-    put("/todos/{id}") {
-        call.response.status(HttpStatusCode.NoContent)
-    }
-
-    delete("/todos/{id}") {
-        call.response.status(HttpStatusCode.NoContent)
-    }
-}
 
 

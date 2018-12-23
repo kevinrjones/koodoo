@@ -3,12 +3,14 @@ package com.knowledgespike.todolist
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.knowledgespike.todolist.shared.ToDoItem
+import com.knowledgespike.todolist.shared.TodoItem
+import com.knowledgespike.todolist.shared.TodoService
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.TestApplicationEngine
 import io.ktor.server.testing.handleRequest
 import io.ktor.server.testing.withTestApplication
+import io.mockk.mockk
 import org.amshove.kluent.`should be`
 import org.amshove.kluent.shouldBeEqualTo
 import org.amshove.kluent.shouldContain
@@ -34,7 +36,7 @@ class ApplicationTest {
 
             with(handleRequest(HttpMethod.Get, "/todos")) {
                 val mapper = jacksonObjectMapper()
-                val item = mapper.readValue<ToDoItem>(response.content!!)
+                val item = mapper.readValue<TodoItem>(response.content!!)
                 item.title.shouldBeEqualTo("Add database processing")
             }
         }
@@ -76,6 +78,7 @@ class ApplicationTest {
     }
 
     private fun testApp(callback: TestApplicationEngine.() -> Unit) {
-        withTestApplication({ moduleWithDependencies(true) }) { callback() }
+        val mockTodoService = mockk<TodoService>()
+        withTestApplication({ moduleWithDependencies(mockTodoService) }) { callback() }
     }
 }

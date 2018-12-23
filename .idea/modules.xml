@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.iml" filepath="$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-repository/com.knowledgespike.todolist-repository.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-repository/com.knowledgespike.todolist-repository.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-repository/com.knowledgespike.todolist-repository.main.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-repository/com.knowledgespike.todolist-repository.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-repository/com.knowledgespike.todolist-repository.test.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-repository/com.knowledgespike.todolist-repository.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.main.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.test.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.test.iml" />

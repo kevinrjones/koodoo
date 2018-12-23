@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ser.std.ToStringSerializer
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer
 import java.time.LocalDate
 
-data class ToDoItem(
+data class TodoItem(
     val title: String,
     val details: String,
     val assignedTo: String,

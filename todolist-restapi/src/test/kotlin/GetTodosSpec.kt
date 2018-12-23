@@ -3,23 +3,40 @@ package com.knowledgespike.todolist
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
-import com.knowledgespike.todolist.shared.ToDoItem
+import com.knowledgespike.todolist.shared.Importance
+import com.knowledgespike.todolist.shared.TodoItem
+import com.knowledgespike.todolist.shared.TodoService
 import io.ktor.config.MapApplicationConfig
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
-import io.ktor.server.testing.*
-import org.amshove.kluent.`should be`
-import org.amshove.kluent.shouldBe
-import org.amshove.kluent.shouldContain
-import org.amshove.kluent.shouldNotBeNull
+import io.ktor.server.testing.TestApplicationEngine
+import io.ktor.server.testing.createTestEnvironment
+import io.ktor.server.testing.handleRequest
+import io.ktor.server.testing.setBody
+import io.mockk.clearMocks
+import io.mockk.every
+import io.mockk.mockk
+import org.amshove.kluent.*
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
+import java.time.LocalDate
 
 
 /**
  * This example creates the TestApplicationEngine engine directly and then uses that engine
  */
 object GetTodosSpec : Spek({
+
+    val todo = TodoItem(
+        "Add database processing",
+        "Add backend support to this code",
+        "Kevin",
+        LocalDate.of(2018, 12, 18),
+        Importance.HIGH
+    )
+
+
+
     describe("Get the todos") {
         val engine = TestApplicationEngine(createTestEnvironment())
         engine.start(wait = false) // for now we can't eliminate it
@@ -33,11 +50,21 @@ object GetTodosSpec : Spek({
             }
         }
 
-        engine.application.moduleWithDependencies(false) // our main module function
+        var mockTodoService= mockk<TodoService>()
+
+        beforeEachTest {
+            clearMocks(mockTodoService)
+        }
+
+        engine.application.moduleWithDependencies(mockTodoService) // our main module function
+        val mapper = jacksonObjectMapper()
+            .registerModule(JavaTimeModule())
 
         with(engine) {
 
             it("should be OK to get the list of todos") {
+                every { mockTodoService.getAll() } returns listOf(todo, todo)
+
                 handleRequest(HttpMethod.Get, "/todos").apply {
                     response.status().`should be`(HttpStatusCode.OK)
                 }
@@ -49,95 +76,90 @@ object GetTodosSpec : Spek({
              * Not sure which is idiomatic (yet)
              */
             it("should get the todos") {
+                every { mockTodoService.getAll() } returns listOf(todo, todo)
 
                 handleRequest(HttpMethod.Get, "/todos").apply {
                     response.content
-                            .shouldNotBeNull()
-                            .shouldContain("database")
+                        .shouldNotBeNull()
+                        .shouldContain("database")
                 }
 
                 handleRequest(HttpMethod.Get, "/todos").let {
                     it.response.content
-                            .shouldNotBeNull()
-                            .shouldContain("database")
+                        .shouldNotBeNull()
+                        .shouldContain("database")
                 }
 
                 with(handleRequest(HttpMethod.Get, "/todos")) {
                     response.content
-                            .shouldNotBeNull()
-                            .shouldContain("database")
+                        .shouldNotBeNull()
+                        .shouldContain("database")
                 }
             }
 
             it("should get the todos") {
+                every { mockTodoService.getAll() } returns listOf(todo, todo)
+
                 with(handleRequest(HttpMethod.Get, "/todos")) {
                     response.content
-                            .shouldNotBeNull()
-                            .shouldContain("database")
+                        .shouldNotBeNull()
+                        .shouldContain("database")
                 }
             }
 
             it("should get the corrrect number of todos") {
+                every { mockTodoService.getAll() } returns listOf(todo, todo)
+
                 with(handleRequest(HttpMethod.Get, "/todos")) {
-                    val mapper = jacksonObjectMapper()
-                            .registerModule(JavaTimeModule())
-                    val todos = mapper.readValue<List<ToDoItem>>(response.content!!)
+                    val todos = mapper.readValue<List<TodoItem>>(response.content!!)
                     todos.size.shouldBe(2)
                 }
             }
 
             it("should create the todos") {
-                with(handleRequest(HttpMethod.Post, "/todos")) {
+                every { mockTodoService.create(any()) } returns true
+
+                with(handleRequest(HttpMethod.Post, "/todos"){
+                    setBody(mapper.writeValueAsString(todo))
+                }) {
                     response.status().`should be`(HttpStatusCode.Created)
                 }
             }
 
             it("should update the todos") {
-                with(handleRequest(HttpMethod.Put, "/todos/1")) {
+                every { mockTodoService.update(any(), any()) } returns true
+                with(handleRequest(HttpMethod.Put, "/todos/1"){
+                    setBody(mapper.writeValueAsString(todo))
+                }) {
                     response.status().`should be`(HttpStatusCode.NoContent)
                 }
             }
 
             it("should delete the todos") {
+                every { mockTodoService.delete(any()) } returns true
                 with(handleRequest(HttpMethod.Delete, "/todos/1")) {
                     response.status().`should be`(HttpStatusCode.NoContent)
                 }
             }
-        }
-    }
-})
 
+            it("should get the todo if the id is set") {
+                every { mockTodoService.getTodo(1) } returns todo
 
+                with(handleRequest(HttpMethod.Get, "/todos/1")) {
+                    response.content
+                        .shouldNotBeNull()
+                        .shouldContain("database")
+                }
+            }
 
-/**
- * This example uses the code from the ktor guid and creates a function that itself
- * creates and uses the test engine (see @see[GetTodoSpec]) for an example where the
- * engine is created explicitly
- */
-object AltGetTodosSpec : Spek({
-    describe("Alt Get the todos") {
-        testApp {
-            /**
-             * Seems to be necessary here to start hen ApplicationTestEngine
-             * The problem then is that Intellij Idea does not show the 'it' tests
-             * as individual runs
-             *
-             */
-            on("/todos") {
-                /**
-                 * This is using @see[apply] to run the asserts after the test has executed
-                 */
-                it("should be OK") {
-                    handleRequest(HttpMethod.Get, "/todos").apply {
-                        response.status().`should be`(HttpStatusCode.OK)
-                    }
+            it("should return an error if the id is invalid") {
+                every { mockTodoService.getTodo(1) } throws Exception()
+
+                with(handleRequest(HttpMethod.Get, "/todos/1")) {
+                    response.status().shouldEqual(HttpStatusCode.NotFound)
                 }
             }
         }
     }
 })
-
-fun testApp(callback: TestApplicationEngine.() -> Unit) {
-    withTestApplication({ moduleWithDependencies(true) }) { callback() }
-}
 
