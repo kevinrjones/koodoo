@@ -65,7 +65,7 @@ object GetTodosSpec : Spek({
             it("should be OK to get the list of todos") {
                 every { mockTodoService.getAll() } returns listOf(todo, todo)
 
-                handleRequest(HttpMethod.Get, "/todos").apply {
+                handleRequest(HttpMethod.Get, "/api/todos").apply {
                     response.status().`should be`(HttpStatusCode.OK)
                 }
             }
@@ -78,19 +78,19 @@ object GetTodosSpec : Spek({
             it("should get the todos") {
                 every { mockTodoService.getAll() } returns listOf(todo, todo)
 
-                handleRequest(HttpMethod.Get, "/todos").apply {
+                handleRequest(HttpMethod.Get, "/api/todos").apply {
                     response.content
                         .shouldNotBeNull()
                         .shouldContain("database")
                 }
 
-                handleRequest(HttpMethod.Get, "/todos").let {
+                handleRequest(HttpMethod.Get, "/api/todos").let {
                     it.response.content
                         .shouldNotBeNull()
                         .shouldContain("database")
                 }
 
-                with(handleRequest(HttpMethod.Get, "/todos")) {
+                with(handleRequest(HttpMethod.Get, "/api/todos")) {
                     response.content
                         .shouldNotBeNull()
                         .shouldContain("database")
@@ -100,7 +100,7 @@ object GetTodosSpec : Spek({
             it("should get the todos") {
                 every { mockTodoService.getAll() } returns listOf(todo, todo)
 
-                with(handleRequest(HttpMethod.Get, "/todos")) {
+                with(handleRequest(HttpMethod.Get, "/api/todos")) {
                     response.content
                         .shouldNotBeNull()
                         .shouldContain("database")
@@ -110,7 +110,7 @@ object GetTodosSpec : Spek({
             it("should get the corrrect number of todos") {
                 every { mockTodoService.getAll() } returns listOf(todo, todo)
 
-                with(handleRequest(HttpMethod.Get, "/todos")) {
+                with(handleRequest(HttpMethod.Get, "/api/todos")) {
                     val todos = mapper.readValue<List<TodoItem>>(response.content!!)
                     todos.size.shouldBe(2)
                 }
@@ -119,7 +119,7 @@ object GetTodosSpec : Spek({
             it("should create the todos") {
                 every { mockTodoService.create(any()) } returns true
 
-                with(handleRequest(HttpMethod.Post, "/todos"){
+                with(handleRequest(HttpMethod.Post, "/api/todos"){
                     setBody(mapper.writeValueAsString(todo))
                 }) {
                     response.status().`should be`(HttpStatusCode.Created)
@@ -128,7 +128,7 @@ object GetTodosSpec : Spek({
 
             it("should update the todos") {
                 every { mockTodoService.update(any(), any()) } returns true
-                with(handleRequest(HttpMethod.Put, "/todos/1"){
+                with(handleRequest(HttpMethod.Put, "/api/todos/1"){
                     setBody(mapper.writeValueAsString(todo))
                 }) {
                     response.status().`should be`(HttpStatusCode.NoContent)
@@ -137,7 +137,7 @@ object GetTodosSpec : Spek({
 
             it("should delete the todos") {
                 every { mockTodoService.delete(any()) } returns true
-                with(handleRequest(HttpMethod.Delete, "/todos/1")) {
+                with(handleRequest(HttpMethod.Delete, "/api/todos/1")) {
                     response.status().`should be`(HttpStatusCode.NoContent)
                 }
             }
@@ -145,7 +145,7 @@ object GetTodosSpec : Spek({
             it("should get the todo if the id is set") {
                 every { mockTodoService.getTodo(1) } returns todo
 
-                with(handleRequest(HttpMethod.Get, "/todos/1")) {
+                with(handleRequest(HttpMethod.Get, "/api/todos/1")) {
                     response.content
                         .shouldNotBeNull()
                         .shouldContain("database")
@@ -155,7 +155,7 @@ object GetTodosSpec : Spek({
             it("should return an error if the id is invalid") {
                 every { mockTodoService.getTodo(1) } throws Exception()
 
-                with(handleRequest(HttpMethod.Get, "/todos/1")) {
+                with(handleRequest(HttpMethod.Get, "/api/todos/1")) {
                     response.status().shouldEqual(HttpStatusCode.NotFound)
                 }
             }

@@ -15,7 +15,7 @@ import io.ktor.jackson.jackson
 import io.ktor.request.uri
 import io.ktor.response.respondRedirect
 import io.ktor.response.respondText
-import io.ktor.routing.routing
+import io.ktor.routing.Routing
 import io.ktor.server.engine.commandLineEnvironment
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
@@ -24,13 +24,14 @@ import org.koin.ktor.ext.inject
 import org.koin.standalone.StandAloneContext.startKoin
 import todoItems
 
+// koin setup
 val todoAppAppModule = module {
     single<TodoService> { TodoServiceImpl(get()) }
     single<TodoListRepository> { TodoListRepositorySql() }
 }
 
 
-fun main(args: Array<String>): Unit  {
+fun main(args: Array<String>): Unit {
     startKoin(listOf(todoAppAppModule))
     embeddedServer(Netty, commandLineEnvironment(args)).start()
 }
@@ -84,9 +85,21 @@ fun Application.moduleWithDependencies(todoService: TodoService) {
         }
     }
 
-    routing {
+// old code
+// fun Application.routing(configure: Routing.() -> Unit) = install(Routing, configure)
+// install (Routing) is the preferred mechanism
+//    routing {
+//        todoItems(todoService)
+//    }
+
+    install(Routing) {
+        if (isDev) trace {
+            application.log.trace(it.buildText())
+        }
+
         todoItems(todoService)
     }
+
 }
 
 
@@ -94,7 +107,3 @@ val Application.envKind get() = environment.config.property("ktor.environment").
 val Application.isDev get() = envKind == "dev"
 val Application.isTest get() = envKind == "test"
 val Application.isProd get() = envKind != "dev" && envKind != "test"
-
-
-
-
