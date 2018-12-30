@@ -19,3 +19,4 @@ data class TodoItem(
 enum class Importance {
     LOW, MEDIUM, HIGH
 }
+

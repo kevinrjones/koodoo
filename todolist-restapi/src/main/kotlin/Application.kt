@@ -1,6 +1,7 @@
 package com.knowledgespike.todolist
 
 import com.fasterxml.jackson.databind.SerializationFeature
+import com.github.mustachejava.DefaultMustacheFactory
 import com.knowledgespike.todolist.shared.TodoService
 import com.knowledgespike.todolist.shared.TodoServiceImpl
 import io.ktor.application.Application
@@ -12,6 +13,7 @@ import io.ktor.features.StatusPages
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.jackson.jackson
+import io.ktor.mustache.Mustache
 import io.ktor.request.uri
 import io.ktor.response.respondRedirect
 import io.ktor.response.respondText
@@ -22,7 +24,9 @@ import io.ktor.server.netty.Netty
 import org.koin.dsl.module.module
 import org.koin.ktor.ext.inject
 import org.koin.standalone.StandAloneContext.startKoin
+import staticResources
 import todoItems
+import todosUI
 
 // koin setup
 val todoAppAppModule = module {
@@ -85,6 +89,10 @@ fun Application.moduleWithDependencies(todoService: TodoService) {
         }
     }
 
+    install(Mustache) {
+        mustacheFactory = DefaultMustacheFactory("templates")
+    }
+
 // old code
 // fun Application.routing(configure: Routing.() -> Unit) = install(Routing, configure)
 // install (Routing) is the preferred mechanism
@@ -98,6 +106,8 @@ fun Application.moduleWithDependencies(todoService: TodoService) {
         }
 
         todoItems(todoService)
+        todosUI(todoService)
+        staticResources()
     }
 
 }
