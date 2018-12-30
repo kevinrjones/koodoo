@@ -4,7 +4,10 @@ import com.knowledgespike.todolist.shared.TodoItem
 import com.knowledgespike.todolist.shared.User
 
 
-data class TodoVM(val todoItems: List<TodoItem>, val user: User)
+data class TodoVM(private val todos: List<TodoItem>, private val user: User) {
+    val userName = user.name
+    val todoItems = todos
+}
 
 
 
