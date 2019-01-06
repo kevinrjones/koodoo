@@ -84,4 +84,11 @@ project(":todolist-restapi") {
     }
 }
 
+project(":todolist-web") {
+
+    dependencies {
+        implementation(project(":todolist-restapi"))
+        implementation(project(":todolist-shared"))
+    }
+}
 

@@ -1,23 +1,22 @@
 @file:Suppress("PackageDirectoryMismatch")
-package com.knowledgespike.todolist.restapi
 
-import com.auth0.jwk.JwkProviderBuilder
-import com.fasterxml.jackson.databind.SerializationFeature
-import com.knowledgespike.todolist.TodoListRepository
-import com.knowledgespike.todolist.TodoListRepositorySql
-import com.knowledgespike.todolist.shared.TodoService
-import com.knowledgespike.todolist.shared.TodoServiceImpl
+package com.knowledgespike.todolist.web
+
+import com.github.mustachejava.DefaultMustacheFactory
 import io.ktor.application.*
 import io.ktor.auth.Authentication
-import io.ktor.auth.jwt.JWTPrincipal
-import io.ktor.auth.jwt.jwt
+import io.ktor.auth.OAuthServerSettings
+import io.ktor.auth.oauth
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.apache.Apache
-import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
+import io.ktor.features.origin
 import io.ktor.http.ContentType
+import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
-import io.ktor.jackson.jackson
+import io.ktor.mustache.Mustache
+import io.ktor.request.host
+import io.ktor.request.port
 import io.ktor.request.uri
 import io.ktor.response.respondRedirect
 import io.ktor.response.respondText
@@ -25,17 +24,23 @@ import io.ktor.routing.Routing
 import io.ktor.server.engine.commandLineEnvironment
 import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
+import io.ktor.sessions.*
 import org.koin.dsl.module.module
-import org.koin.ktor.ext.inject
 import org.koin.standalone.StandAloneContext.startKoin
-import java.net.URL
-import java.util.concurrent.TimeUnit
 
 // koin setup
 val todoAppAppModule = module {
-    single<TodoService> { TodoServiceImpl(get()) }
-    single<TodoListRepository> { TodoListRepositorySql() }
 }
+
+val logonProvider = OAuthServerSettings.OAuth2ServerSettings(
+    name = "idsvr",
+    authorizeUrl = "https://localhost:5443/connect/authorize",
+    accessTokenUrl = "https://localhost:5443/connect/token",
+    requestMethod = HttpMethod.Post,
+    clientId = "todolistClient",
+    clientSecret = "superSecretPassword",
+    defaultScopes = listOf("todolistAPI.read", "todolistAPI.write")
+)
 
 fun main(args: Array<String>) {
     startKoin(listOf(todoAppAppModule))
@@ -52,22 +57,13 @@ fun Application.module() {
         }
     }
 
-    val todoService: TodoService by inject()
-    moduleWithDependencies(todoService, oauthHttpClient)
+    moduleWithDependencies(oauthHttpClient)
 }
 
 // todo: move all to config
+const val oauthAuthentication = "oauthAuthentication"
 
-val jwkIssuer = "http://localhost:5000"
-val jwksUrl= URL("http://localhost:5000/.well-known/openid-configuration/jwks")
-val jwkRealm = "ktor jwt auth test"
-val jwkProvider = JwkProviderBuilder(jwksUrl)
-    .cached(10, 24, TimeUnit.HOURS)
-    .rateLimited(10, 1, TimeUnit.MINUTES)
-    .build()
-val audience = "http://localhost:5000/resources"
-
-fun Application.moduleWithDependencies(todoService: TodoService, oauthHttpClient: HttpClient) {
+fun Application.moduleWithDependencies(oauthHttpClient: HttpClient) {
 
 
     install(StatusPages) {
@@ -99,36 +95,42 @@ fun Application.moduleWithDependencies(todoService: TodoService, oauthHttpClient
         status(HttpStatusCode.Unauthorized) {
             log.info("Unauthorized: ${call.request.uri}")
             return@status call.respondRedirect("http://localhost:9080", permanent = false)
+
         }
     }
 
-    install(ContentNegotiation) {
-        jackson {
-            enable(SerializationFeature.INDENT_OUTPUT)
-            disableDefaultTyping()
-        }
+    install(Mustache) {
+        mustacheFactory = DefaultMustacheFactory("templates")
+    }
+
+    install(Sessions) {
+        cookie<UserSession>("KTOR_SESSION", storage = SessionStorageMemory())
     }
 
     install(Authentication) {
-        jwt("jwt") {
-            verifier(jwkProvider, jwkIssuer)
-            realm = jwkRealm
-            validate { credentials ->
-                log.debug(credentials.payload.audience.toString())
-                if (credentials.payload.audience.contains(audience)) JWTPrincipal(credentials.payload) else null
+        oauth(oauthAuthentication) {
+            skipWhen { call -> call.sessions.get<UserSession>() != null }
+            client = oauthHttpClient
+            providerLookup = {
+                logonProvider
             }
+            urlProvider = { redirectUrl("/todos") }
         }
     }
 
     install(Routing) {
+        val routing = this
         if (isDev) trace {
             application.log.trace(it.buildText())
         }
 
-        todos(todoService)
+        todos()
+        staticResources()
     }
 
 }
+
+data class UserSession(val name: String)
 
 
 val Application.envKind get() = environment.config.property("ktor.environment").getString()
@@ -136,3 +138,9 @@ val Application.isDev get() = envKind == "dev"
 val Application.isTest get() = envKind == "test"
 val Application.isProd get() = envKind != "dev" && envKind != "test"
 
+private fun ApplicationCall.redirectUrl(path: String): String {
+    val defaultPort = if (request.origin.scheme == "http") 80 else 443
+    val hostPort = request.host()!! + request.port().let { port -> if (port == defaultPort) "" else ":$port" }
+    val protocol = request.origin.scheme
+    return "$protocol://$hostPort$path"
+}

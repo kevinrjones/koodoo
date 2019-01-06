@@ -15,6 +15,9 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-shared/com.knowledgespike.todolist-shared.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-shared/com.knowledgespike.todolist-shared.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-shared/com.knowledgespike.todolist-shared.main.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-shared/com.knowledgespike.todolist-shared.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-shared/com.knowledgespike.todolist-shared.test.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-shared/com.knowledgespike.todolist-shared.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-web/com.knowledgespike.todolist-web.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-web/com.knowledgespike.todolist-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-web/com.knowledgespike.todolist-web.main.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-web/com.knowledgespike.todolist-web.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-web/com.knowledgespike.todolist-web.test.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-web/com.knowledgespike.todolist-web.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.test.iml" filepath="$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.test.iml" />
     </modules>

@@ -1,3 +1,5 @@
+package com.knowledgespike.todolist.restapi
+
 import com.knowledgespike.todolist.shared.TodoItem
 import com.knowledgespike.todolist.shared.TodoService
 import io.ktor.application.call
@@ -7,7 +9,7 @@ import io.ktor.request.receive
 import io.ktor.response.respond
 import io.ktor.routing.*
 
-fun Routing.todoItems(todoService: TodoService) {
+fun Routing.todos(todoService: TodoService) {
 
     authenticate("jwt") {
         route("/api") {
