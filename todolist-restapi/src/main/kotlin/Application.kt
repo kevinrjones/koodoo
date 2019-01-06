@@ -1,5 +1,6 @@
 package com.knowledgespike.todolist
 
+import com.auth0.jwk.JwkProviderBuilder
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.github.mustachejava.DefaultMustacheFactory
 import com.knowledgespike.todolist.shared.TodoService
@@ -7,6 +8,8 @@ import com.knowledgespike.todolist.shared.TodoServiceImpl
 import io.ktor.application.*
 import io.ktor.auth.Authentication
 import io.ktor.auth.OAuthServerSettings
+import io.ktor.auth.jwt.JWTPrincipal
+import io.ktor.auth.jwt.jwt
 import io.ktor.auth.oauth
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.apache.Apache
@@ -34,6 +37,8 @@ import org.koin.standalone.StandAloneContext.startKoin
 import staticResources
 import todoItems
 import todosUI
+import java.net.URL
+import java.util.concurrent.TimeUnit
 
 // koin setup
 val todoAppAppModule = module {
@@ -70,7 +75,16 @@ fun Application.module() {
     moduleWithDependencies(todoService, oauthHttpClient)
 }
 
+// todo: move all to config
 const val oauthAuthentication = "oauthAuthentication"
+val jwkIssuer = "http://localhost:5000"
+val jwksUrl= URL("http://localhost:5000/.well-known/openid-configuration/jwks")
+val jwkRealm = "ktor jwt auth test"
+val jwkProvider = JwkProviderBuilder(jwksUrl)
+    .cached(10, 24, TimeUnit.HOURS)
+    .rateLimited(10, 1, TimeUnit.MINUTES)
+    .build()
+val audience = "http://localhost:5000/resources"
 
 fun Application.moduleWithDependencies(todoService: TodoService, oauthHttpClient: HttpClient) {
 
@@ -120,16 +134,25 @@ fun Application.moduleWithDependencies(todoService: TodoService, oauthHttpClient
     }
 
     install(Sessions) {
-        cookie<UserSession>("KTOR_SESSION", storage = SessionStorageMemory() )
+        cookie<UserSession>("KTOR_SESSION", storage = SessionStorageMemory())
     }
+
     install(Authentication) {
         oauth(oauthAuthentication) {
-            skipWhen {call -> call.sessions.get<UserSession>() != null}
+            skipWhen { call -> call.sessions.get<UserSession>() != null }
             client = oauthHttpClient
             providerLookup = {
                 logonProvider
             }
             urlProvider = { redirectUrl("/todos") }
+        }
+        jwt("jwt") {
+            verifier(jwkProvider, jwkIssuer)
+            realm = jwkRealm
+            validate { credentials ->
+                log.debug(credentials.payload.audience.toString())
+                if (credentials.payload.audience.contains(audience)) JWTPrincipal(credentials.payload) else null
+            }
         }
     }
 
