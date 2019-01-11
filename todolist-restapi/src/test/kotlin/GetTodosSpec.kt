@@ -3,9 +3,12 @@ package com.knowledgespike.todolist
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.knowledgespike.todolist.restapi.moduleWithDependencies
 import com.knowledgespike.todolist.shared.Importance
 import com.knowledgespike.todolist.shared.TodoItem
 import com.knowledgespike.todolist.shared.TodoService
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.apache.Apache
 import io.ktor.config.MapApplicationConfig
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
@@ -56,7 +59,10 @@ object GetTodosSpec : Spek({
             clearMocks(mockTodoService)
         }
 
-        engine.application.moduleWithDependencies(mockTodoService) // our main module function
+        //todo: remove this
+        val oauthHttpClient: HttpClient = HttpClient(Apache)
+
+        engine.application.moduleWithDependencies(mockTodoService, oauthHttpClient) // our main module function
         val mapper = jacksonObjectMapper()
             .registerModule(JavaTimeModule())
 

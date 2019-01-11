@@ -58,16 +58,22 @@ fun Application.module() {
 
 // todo: move all to config
 
-val jwkIssuer = "http://localhost:5000"
-val jwksUrl= URL("http://localhost:5000/.well-known/openid-configuration/jwks")
-val jwkRealm = "ktor jwt auth test"
-val jwkProvider = JwkProviderBuilder(jwksUrl)
-    .cached(10, 24, TimeUnit.HOURS)
-    .rateLimited(10, 1, TimeUnit.MINUTES)
-    .build()
-val audience = "http://localhost:5000/resources"
 
 fun Application.moduleWithDependencies(todoService: TodoService, oauthHttpClient: HttpClient) {
+//    var config = HoconApplicationConfig(ConfigFactory.load("application.conf"))
+//    when {
+//        isDev -> {
+//            config = HoconApplicationConfig(ConfigFactory.load("application.dev.conf"))
+//        }
+//    }
+    val jwkIssuer = environment.config.property("jwt.jwkIssuer").getString() // "http://localhost:5000"
+    val jwksUrl= URL(environment.config.property("jwt.jwksUrl").getString()) // "http://localhost:5000/.well-known/openid-configuration/jwks"
+    val jwkRealm = environment.config.property("jwt.jwkRealm").getString() // "ktor jwt auth test"
+    val jwkProvider = JwkProviderBuilder(jwksUrl)
+        .cached(10, 24, TimeUnit.HOURS)
+        .rateLimited(10, 1, TimeUnit.MINUTES)
+        .build()
+    val audience = "http://localhost:5000/resources"
 
 
     install(StatusPages) {

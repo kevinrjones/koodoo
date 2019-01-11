@@ -1,8 +1,11 @@
 package com.knowledgespike.todolist
 
+import com.knowledgespike.todolist.restapi.moduleWithDependencies
 import com.knowledgespike.todolist.shared.Importance
 import com.knowledgespike.todolist.shared.TodoItem
 import com.knowledgespike.todolist.shared.TodoService
+import io.ktor.client.HttpClient
+import io.ktor.client.engine.apache.Apache
 import io.ktor.config.MapApplicationConfig
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
@@ -70,7 +73,9 @@ fun testApp(callback: TestApplicationEngine.() -> Unit) {
             }
         }
 
-        moduleWithDependencies(gmockTodoService)
+        // todo: remove this
+        val oauthHttpClient: HttpClient = HttpClient(Apache)
+        moduleWithDependencies(gmockTodoService, oauthHttpClient)
     }) { callback() }
 }
 
