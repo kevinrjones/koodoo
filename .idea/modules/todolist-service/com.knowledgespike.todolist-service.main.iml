@@ -6,7 +6,7 @@
         <compilerSettings />
         <compilerArguments>
           <option name="destination" value="$MODULE_DIR$/../../../todolist-service/build/classes/kotlin/main" />
-          <option name="classpath" value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.1/706a8b8206ead3683ec639dd270d11fd948fbb0e/logback-classic-1.2.1.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.module/jackson-module-kotlin/2.9.8/7ea1867daf999d6a3028362a0418da44b751bc13/jackson-module-kotlin-2.9.8.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.datatype/jackson-datatype-jsr310/2.9.8/28ad1bced632ba338e51c825a652f6e11a8e6eac/jackson-datatype-jsr310-2.9.8.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.3.10/71d0fa967493eb76648b575edf1762cb2d0c7f10/kotlin-stdlib-jdk8-1.3.10.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.2.1/378913dfc3c6c71e7e2a2853eff2c3e8ac27599/logback-core-1.2.1.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.22/a1c83373863cec7ae8d89dc1c5722d8cb6ec0309/slf4j-api-1.7.22.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.9.8/11283f21cc480aa86c4df7a0a3243ec508372ed2/jackson-databind-2.9.8.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.9.0/7c10d545325e3a6e72e06381afe469fd40eb701/jackson-annotations-2.9.0.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.3.10/dd02865be0351707554b16a896b766b2396cdafa/kotlin-reflect-1.3.10.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.9.8/f5a654e4675769c716e5b387830d19b501ca191/jackson-core-2.9.8.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.10/4d147bf43060dc43d61b096e24da1e67dfe0c032/kotlin-stdlib-jdk7-1.3.10.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.10/b178c1501609c6e4ee8be635513cb023a466457d/kotlin-stdlib-1.3.10.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.10/1b19d99229dcedad7caf50534dce38fe82845269/kotlin-stdlib-common-1.3.10.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar" />
+          <option name="classpath" value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-classic/1.2.1/706a8b8206ead3683ec639dd270d11fd948fbb0e/logback-classic-1.2.1.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.module/jackson-module-kotlin/2.9.8/7ea1867daf999d6a3028362a0418da44b751bc13/jackson-module-kotlin-2.9.8.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.datatype/jackson-datatype-jsr310/2.9.8/28ad1bced632ba338e51c825a652f6e11a8e6eac/jackson-datatype-jsr310-2.9.8.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk8/1.3.10/71d0fa967493eb76648b575edf1762cb2d0c7f10/kotlin-stdlib-jdk8-1.3.10.jar:/Users/kevinjones/projects/ktor/todolist/todolist-shared/build/classes/kotlin/main:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/io.arrow-kt/arrow-core/0.8.2/15c1949942a7081557d737644a3b182043a1b180/arrow-core-0.8.2.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/com.beust/klaxon/5.0.1/4c1ffe12cd890eef021808dfb2fe2993dfeaf0c9/klaxon-5.0.1.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/ch.qos.logback/logback-core/1.2.1/378913dfc3c6c71e7e2a2853eff2c3e8ac27599/logback-core-1.2.1.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/org.slf4j/slf4j-api/1.7.22/a1c83373863cec7ae8d89dc1c5722d8cb6ec0309/slf4j-api-1.7.22.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-databind/2.9.8/11283f21cc480aa86c4df7a0a3243ec508372ed2/jackson-databind-2.9.8.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-annotations/2.9.0/7c10d545325e3a6e72e06381afe469fd40eb701/jackson-annotations-2.9.0.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-reflect/1.3.10/dd02865be0351707554b16a896b766b2396cdafa/kotlin-reflect-1.3.10.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/com.fasterxml.jackson.core/jackson-core/2.9.8/f5a654e4675769c716e5b387830d19b501ca191/jackson-core-2.9.8.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-jdk7/1.3.11/4839661cf6ce3c14b65ed7dcf5b9249b44ecca16/kotlin-stdlib-jdk7-1.3.11.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/io.arrow-kt/arrow-annotations/0.8.2/8b4178e25f04348747a25305df2afd80ee2b2254/arrow-annotations-0.8.2.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.3.11/4cbc5922a54376018307a731162ccaf3ef851a39/kotlin-stdlib-1.3.11.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.3.11/d8b8e746e279f1c4f5e08bc14a96b82e6bb1de02/kotlin-stdlib-common-1.3.11.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar:/Users/kevinjones/.gradle/caches/modules-2/files-2.1/io.kindedj/kindedj/1.1.0/462731347602a3f24e3f21feec50928f9a657741/kindedj-1.1.0.jar" />
           <option name="noStdlib" value="true" />
           <option name="noReflect" value="true" />
           <option name="moduleName" value="todolist-service" />
@@ -19,6 +19,9 @@
           </option>
           <option name="pluginClasspaths">
             <array />
+          </option>
+          <option name="errors">
+            <ArgumentParseErrors />
           </option>
         </compilerArguments>
       </configuration>
@@ -38,17 +41,23 @@
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.module:jackson-module-kotlin:2.9.8" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.8" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.3.10" level="project" />
-    <orderEntry type="module" module-name="com.knowledgespike.todolist-repository.main" />
+    <orderEntry type="module" module-name="com.knowledgespike.oauth-client.main" />
+    <orderEntry type="library" name="Gradle: io.arrow-kt:arrow-core:0.8.2" level="project" />
+    <orderEntry type="library" name="Gradle: com.beust:klaxon:5.0.1" level="project" />
     <orderEntry type="library" name="Gradle: ch.qos.logback:logback-core:1.2.1" level="project" />
     <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:1.7.22" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.9.8" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.9.0" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-reflect:1.3.10" level="project" />
     <orderEntry type="library" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.9.8" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.10" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.3.10" level="project" />
-    <orderEntry type="module" module-name="com.knowledgespike.todolist-shared.main" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.10" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.3.11" level="project" />
+    <orderEntry type="library" name="Gradle: io.arrow-kt:arrow-annotations:0.8.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.github.kittinunf.fuel:fuel:1.15.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.3.11" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.3.11" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
+    <orderEntry type="module" module-name="com.knowledgespike.todolist-shared.main" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.github.kittinunf.result:result:1.6.0" level="project" />
+    <orderEntry type="library" name="Gradle: io.kindedj:kindedj:1.1.0" level="project" />
   </component>
 </module>

@@ -29,6 +29,8 @@ dependencies {
     implementation("io.ktor:ktor-mustache:$ktor_version")
     implementation("org.koin:koin-ktor:$koin_version")
 
+    testImplementation("io.ktor:ktor-client-mock-jvm:$ktor_version")
+    testImplementation("io.ktor:ktor-client-mock:$ktor_version")
     testImplementation("io.ktor:ktor-server-tests:$ktor_version")
     testImplementation("io.ktor:ktor-server-test-host:$ktor_version")
     testImplementation("io.mockk:mockk:$mockk_version")

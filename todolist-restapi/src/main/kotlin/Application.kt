@@ -3,16 +3,17 @@ package com.knowledgespike.todolist.restapi
 
 import com.auth0.jwk.JwkProviderBuilder
 import com.fasterxml.jackson.databind.SerializationFeature
+import com.knowledgespike.dataaccess.shared.TodoService
+import com.knowledgespike.dataaccess.shared.TodoServiceImpl
 import com.knowledgespike.todolist.TodoListRepository
 import com.knowledgespike.todolist.TodoListRepositorySql
-import com.knowledgespike.todolist.shared.TodoService
-import com.knowledgespike.todolist.shared.TodoServiceImpl
-import io.ktor.application.*
+import io.ktor.application.Application
+import io.ktor.application.call
+import io.ktor.application.install
+import io.ktor.application.log
 import io.ktor.auth.Authentication
 import io.ktor.auth.jwt.JWTPrincipal
 import io.ktor.auth.jwt.jwt
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.apache.Apache
 import io.ktor.features.ContentNegotiation
 import io.ktor.features.StatusPages
 import io.ktor.http.ContentType
@@ -46,26 +47,24 @@ fun main(args: Array<String>) {
 @Suppress("unused") // Referenced in application.conf
 fun Application.module() {
 
-    val oauthHttpClient: HttpClient = HttpClient(Apache).apply {
-        environment.monitor.subscribe(ApplicationStopping) {
-            close()
-        }
-    }
-
     val todoService: TodoService by inject()
-    moduleWithDependencies(todoService, oauthHttpClient)
+    moduleWithDependencies(todoService)
 }
 
 // todo: move all to config
 
 
-fun Application.moduleWithDependencies(todoService: TodoService, oauthHttpClient: HttpClient) {
+fun Application.moduleWithDependencies(todoService: TodoService) {
+
+    // At the moment passing -config=application.dev.conf on the commant line
+
 //    var config = HoconApplicationConfig(ConfigFactory.load("application.conf"))
 //    when {
 //        isDev -> {
 //            config = HoconApplicationConfig(ConfigFactory.load("application.dev.conf"))
 //        }
 //    }
+
     val jwkIssuer = environment.config.property("jwt.jwkIssuer").getString() // "http://localhost:5000"
     val jwksUrl= URL(environment.config.property("jwt.jwksUrl").getString()) // "http://localhost:5000/.well-known/openid-configuration/jwks"
     val jwkRealm = environment.config.property("jwt.jwkRealm").getString() // "ktor jwt auth test"
@@ -120,7 +119,8 @@ fun Application.moduleWithDependencies(todoService: TodoService, oauthHttpClient
             verifier(jwkProvider, jwkIssuer)
             realm = jwkRealm
             validate { credentials ->
-                log.debug(credentials.payload.audience.toString())
+                log.debug("Credentials audience: ${credentials.payload.audience}")
+                log.debug("audience: $audience")
                 if (credentials.payload.audience.contains(audience)) JWTPrincipal(credentials.payload) else null
             }
         }

@@ -2,6 +2,14 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
+      <module name="com.knowledgespike.dataaccess-service.main" target="1.8" />
+      <module name="com.knowledgespike.dataaccess-service.test" target="1.8" />
+      <module name="com.knowledgespike.oauth-client.main" target="1.8" />
+      <module name="com.knowledgespike.oauth-client.test" target="1.8" />
+      <module name="com.knowledgespike.oauth.main" target="1.8" />
+      <module name="com.knowledgespike.oauth.test" target="1.8" />
+      <module name="com.knowledgespike.repository.main" target="1.8" />
+      <module name="com.knowledgespike.repository.test" target="1.8" />
       <module name="com.knowledgespike.todolist-reposi.main" target="1.8" />
       <module name="com.knowledgespike.todolist-reposi.test" target="1.8" />
       <module name="com.knowledgespike.todolist-repository.main" target="1.8" />

@@ -3,10 +3,10 @@ package com.knowledgespike.todolist
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.knowledgespike.dataaccess.shared.TodoService
 import com.knowledgespike.todolist.restapi.moduleWithDependencies
 import com.knowledgespike.todolist.shared.Importance
 import com.knowledgespike.todolist.shared.TodoItem
-import com.knowledgespike.todolist.shared.TodoService
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.apache.Apache
 import io.ktor.config.MapApplicationConfig
@@ -50,19 +50,19 @@ object GetTodosSpec : Spek({
             (environment.config as MapApplicationConfig).apply {
                 // Set here the properties
                 put("ktor.environment", "test")
+                put("jwt.jwkIssuer", "http://localhost:5000")
+                put("jwt.jwksUrl", "http://localhost:5000")
+                put("jwt.jwkRealm", "test")
             }
         }
 
-        var mockTodoService= mockk<TodoService>()
+        val mockTodoService= mockk<TodoService>()
 
         beforeEachTest {
             clearMocks(mockTodoService)
         }
 
-        //todo: remove this
-        val oauthHttpClient: HttpClient = HttpClient(Apache)
-
-        engine.application.moduleWithDependencies(mockTodoService, oauthHttpClient) // our main module function
+        engine.application.moduleWithDependencies(mockTodoService) // our main module function
         val mapper = jacksonObjectMapper()
             .registerModule(JavaTimeModule())
 

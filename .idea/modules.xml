@@ -2,10 +2,16 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dataaccess-service/com.knowledgespike.dataaccess-service.iml" filepath="$PROJECT_DIR$/.idea/modules/dataaccess-service/com.knowledgespike.dataaccess-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dataaccess-service/com.knowledgespike.dataaccess-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dataaccess-service/com.knowledgespike.dataaccess-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dataaccess-service/com.knowledgespike.dataaccess-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dataaccess-service/com.knowledgespike.dataaccess-service.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/oauth-client/com.knowledgespike.oauth-client.iml" filepath="$PROJECT_DIR$/.idea/modules/oauth-client/com.knowledgespike.oauth-client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/oauth-client/com.knowledgespike.oauth-client.main.iml" filepath="$PROJECT_DIR$/.idea/modules/oauth-client/com.knowledgespike.oauth-client.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/oauth-client/com.knowledgespike.oauth-client.test.iml" filepath="$PROJECT_DIR$/.idea/modules/oauth-client/com.knowledgespike.oauth-client.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/repository/com.knowledgespike.repository.iml" filepath="$PROJECT_DIR$/.idea/modules/repository/com.knowledgespike.repository.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/repository/com.knowledgespike.repository.main.iml" filepath="$PROJECT_DIR$/.idea/modules/repository/com.knowledgespike.repository.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/repository/com.knowledgespike.repository.test.iml" filepath="$PROJECT_DIR$/.idea/modules/repository/com.knowledgespike.repository.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.iml" filepath="$PROJECT_DIR$/.idea/modules/com.knowledgespike.todolist.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-repository/com.knowledgespike.todolist-repository.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-repository/com.knowledgespike.todolist-repository.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-repository/com.knowledgespike.todolist-repository.main.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-repository/com.knowledgespike.todolist-repository.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-repository/com.knowledgespike.todolist-repository.test.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-repository/com.knowledgespike.todolist-repository.test.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.main.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.test.iml" filepath="$PROJECT_DIR$/.idea/modules/todolist-restapi/com.knowledgespike.todolist-restapi.test.iml" />

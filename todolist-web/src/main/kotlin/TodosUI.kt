@@ -1,5 +1,6 @@
 package com.knowledgespike.todolist.web
 
+import com.knowledgespike.dataaccess.shared.TodoService
 import com.knowledgespike.models.TodoVM
 import com.knowledgespike.todolist.shared.Importance
 import com.knowledgespike.todolist.shared.TodoItem
@@ -23,9 +24,9 @@ val todo = TodoItem(
     Importance.HIGH
 )
 
-val todos = listOf(todo, todo)
+var todos = listOf(todo, todo)
 
-fun Routing.todos() {
+fun Routing.todos(todoService: TodoService) {
     authenticate(oauthAuthentication) {
 
 
@@ -34,8 +35,11 @@ fun Routing.todos() {
                 call.sessions.get<UserSession>() == null -> call.sessions.set(UserSession(name = "John"))
             }
 
+            todos = todoService.getAll()
+
             val todoVM = TodoVM(todos, User("Kevin Smith"))
 
+            // getClientCredential("http://localhost:5000/connect/token", "todolistClient", "superSecretPassword", listOf("todolistAPI.read", "todolistAPI.write"))
             call.respond(
                 MustacheContent("todos.hbs", mapOf("todos" to todoVM))
             )

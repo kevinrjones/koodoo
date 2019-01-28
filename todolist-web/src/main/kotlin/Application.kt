@@ -3,6 +3,10 @@
 package com.knowledgespike.todolist.web
 
 import com.github.mustachejava.DefaultMustacheFactory
+import com.knowledgespike.dataaccess.shared.TodoService
+import com.knowledgespike.todo.service.TodoServiceImpl
+import com.knowledgespike.todolist.IOAuthClient
+import com.knowledgespike.todolist.OAuthClient
 import io.ktor.application.*
 import io.ktor.auth.Authentication
 import io.ktor.auth.OAuthServerSettings
@@ -26,10 +30,13 @@ import io.ktor.server.engine.embeddedServer
 import io.ktor.server.netty.Netty
 import io.ktor.sessions.*
 import org.koin.dsl.module.module
+import org.koin.ktor.ext.inject
 import org.koin.standalone.StandAloneContext.startKoin
 
 // koin setup
 val todoAppAppModule = module {
+    single<TodoService> { TodoServiceImpl(get()) }
+    single<IOAuthClient> { OAuthClient() }
 }
 
 val logonProvider = OAuthServerSettings.OAuth2ServerSettings(
@@ -57,13 +64,15 @@ fun Application.module() {
         }
     }
 
-    moduleWithDependencies(oauthHttpClient)
+    val todoService: TodoService by inject()
+
+    moduleWithDependencies(todoService, oauthHttpClient)
 }
 
 // todo: move all to config
 const val oauthAuthentication = "oauthAuthentication"
 
-fun Application.moduleWithDependencies(oauthHttpClient: HttpClient) {
+fun Application.moduleWithDependencies(todoService: TodoService, oauthHttpClient: HttpClient) {
 
 
     install(StatusPages) {
@@ -124,7 +133,7 @@ fun Application.moduleWithDependencies(oauthHttpClient: HttpClient) {
             application.log.trace(it.buildText())
         }
 
-        todos()
+        todos(todoService)
         staticResources()
     }
 

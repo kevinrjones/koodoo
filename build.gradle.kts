@@ -61,26 +61,36 @@ subprojects {
 project(":todolist-shared") {
 }
 
-project(":todolist-repository") {
+project(":oauth-client") {
+}
+
+project(":repository") {
     dependencies {
         implementation(project(":todolist-shared"))
     }
 
 }
 
+project(":dataaccess-service") {
+    dependencies {
+        implementation(project(":todolist-shared"))
+        implementation(project(":repository"))
+    }
+}
+
 project(":todolist-service") {
     dependencies {
         implementation(project(":todolist-shared"))
-        implementation(project(":todolist-repository"))
+        implementation(project(":oauth-client"))
     }
 }
 
 project(":todolist-restapi") {
 
     dependencies {
-        implementation(project(":todolist-service"))
+        implementation(project(":dataaccess-service"))
         implementation(project(":todolist-shared"))
-        implementation(project(":todolist-repository"))
+        implementation(project(":repository"))
     }
 }
 
@@ -89,6 +99,8 @@ project(":todolist-web") {
     dependencies {
         implementation(project(":todolist-restapi"))
         implementation(project(":todolist-shared"))
+        implementation(project(":todolist-service"))
+        implementation(project(":oauth-client"))
     }
 }
 

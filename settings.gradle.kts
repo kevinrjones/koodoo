@@ -2,7 +2,9 @@
 rootProject.name = "todolist"
 
 include("todolist-shared")
-include("todolist-service")
+include("dataaccess-service")
 include("todolist-restapi")
 include("todolist-web")
-include("todolist-repository")
+include("todolist-service")
+include("repository")
+include("oauth-client")

@@ -3,11 +3,9 @@ package com.knowledgespike.todolist
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import com.knowledgespike.dataaccess.shared.TodoService
 import com.knowledgespike.todolist.restapi.moduleWithDependencies
 import com.knowledgespike.todolist.shared.TodoItem
-import com.knowledgespike.todolist.shared.TodoService
-import io.ktor.client.HttpClient
-import io.ktor.client.engine.apache.Apache
 import io.ktor.http.HttpMethod
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.testing.TestApplicationEngine
@@ -82,8 +80,6 @@ class ApplicationTest {
 
     private fun testApp(callback: TestApplicationEngine.() -> Unit) {
         val mockTodoService = mockk<TodoService>()
-        // todo: remove this
-        val oauthHttpClient: HttpClient = HttpClient(Apache)
-        withTestApplication({ moduleWithDependencies(mockTodoService, oauthHttpClient) }) { callback() }
+        withTestApplication({ moduleWithDependencies(mockTodoService) }) { callback() }
     }
 }

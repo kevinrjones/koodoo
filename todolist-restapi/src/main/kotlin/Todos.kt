@@ -1,7 +1,7 @@
 package com.knowledgespike.todolist.restapi
 
+import com.knowledgespike.dataaccess.shared.TodoService
 import com.knowledgespike.todolist.shared.TodoItem
-import com.knowledgespike.todolist.shared.TodoService
 import io.ktor.application.call
 import io.ktor.auth.authenticate
 import io.ktor.http.HttpStatusCode
