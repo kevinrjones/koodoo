@@ -1,7 +1,9 @@
 @file:Suppress("PackageDirectoryMismatch")
+
 package com.knowledgespike.todolist.restapi
 
 import com.auth0.jwk.JwkProviderBuilder
+import com.auth0.jwt.interfaces.Payload
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.knowledgespike.dataaccess.shared.TodoService
 import com.knowledgespike.dataaccess.shared.TodoServiceImpl
@@ -12,6 +14,7 @@ import io.ktor.application.call
 import io.ktor.application.install
 import io.ktor.application.log
 import io.ktor.auth.Authentication
+import io.ktor.auth.jwt.JWTCredential
 import io.ktor.auth.jwt.JWTPrincipal
 import io.ktor.auth.jwt.jwt
 import io.ktor.features.ContentNegotiation
@@ -20,7 +23,6 @@ import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.jackson.jackson
 import io.ktor.request.uri
-import io.ktor.response.respondRedirect
 import io.ktor.response.respondText
 import io.ktor.routing.Routing
 import io.ktor.server.engine.commandLineEnvironment
@@ -40,7 +42,7 @@ val todoAppAppModule = module {
 
 fun main(args: Array<String>) {
     startKoin(listOf(todoAppAppModule))
-    embeddedServer(Netty, commandLineEnvironment(args)).start()
+    embeddedServer(Netty, commandLineEnvironment(args)).start(true)
 }
 
 
@@ -66,7 +68,8 @@ fun Application.moduleWithDependencies(todoService: TodoService) {
 //    }
 
     val jwkIssuer = environment.config.property("jwt.jwkIssuer").getString() // "http://localhost:5000"
-    val jwksUrl= URL(environment.config.property("jwt.jwksUrl").getString()) // "http://localhost:5000/.well-known/openid-configuration/jwks"
+    val jwksUrl =
+        URL(environment.config.property("jwt.jwksUrl").getString()) // "http://localhost:5000/.well-known/openid-configuration/jwks"
     val jwkRealm = environment.config.property("jwt.jwkRealm").getString() // "ktor jwt auth test"
     val jwkProvider = JwkProviderBuilder(jwksUrl)
         .cached(10, 24, TimeUnit.HOURS)
@@ -103,7 +106,7 @@ fun Application.moduleWithDependencies(todoService: TodoService) {
         // just an example - need to add proper unauthorized
         status(HttpStatusCode.Unauthorized) {
             log.info("Unauthorized: ${call.request.uri}")
-            return@status call.respondRedirect("http://localhost:9080", permanent = false)
+//            return@status call.respondRedirect("http://localhost:9080", permanent = false)
         }
     }
 
@@ -118,13 +121,27 @@ fun Application.moduleWithDependencies(todoService: TodoService) {
         jwt("jwt") {
             verifier(jwkProvider, jwkIssuer)
             realm = jwkRealm
+            var cred: JWTCredential
+            var principal: JWTPrincipal
             validate { credentials ->
+                cred = credentials
                 log.debug("Credentials audience: ${credentials.payload.audience}")
                 log.debug("audience: $audience")
-                if (credentials.payload.audience.contains(audience)) JWTPrincipal(credentials.payload) else null
+
+                if(credentials.payload.hasRequiredScope("todolistAPI.read")) {
+                    log.debug("has scope: todolistAPI.read")
+                }
+
+                if (credentials.payload.audience.contains(audience)) {
+                    principal = JWTPrincipal(credentials.payload)
+                    principal
+                } else
+                    null
             }
         }
     }
+
+
 
     install(Routing) {
         if (isDev) trace {
@@ -142,3 +159,7 @@ val Application.isDev get() = envKind == "dev"
 val Application.isTest get() = envKind == "test"
 val Application.isProd get() = envKind != "dev" && envKind != "test"
 
+val Payload.scopes :  List<String>
+    get() = this.getClaim("scope")!!.asArray(String::class.java).asList()
+
+fun Payload.hasRequiredScope(scope: String) = this.scopes.contains(scope)

@@ -1,6 +1,3 @@
-import org.jetbrains.kotlin.gradle.dsl.Coroutines
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 val logback_version: String by project
 val kotlin_version: String by project
 val spek_version: String by project
@@ -31,7 +28,9 @@ allprojects {
     repositories {
         jcenter()
         mavenLocal()
-        maven { url = uri("https://kotlin.bintray.com/ktor") }
+        maven { url = uri("https://kotlin.bintray.com/ktor") } 
+        maven { url = uri("https://dl.bintray.com/kotlin/kotlinx/") }
+
     }
 
     dependencies {
