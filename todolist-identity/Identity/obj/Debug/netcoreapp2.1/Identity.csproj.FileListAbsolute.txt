@@ -1,0 +1,14 @@
+/Users/kevinjones/Dropbox/projects/ktor/todolist-identity/Identity/bin/Debug/netcoreapp2.1/Identity.deps.json
+/Users/kevinjones/Dropbox/projects/ktor/todolist-identity/Identity/bin/Debug/netcoreapp2.1/Identity.runtimeconfig.json
+/Users/kevinjones/Dropbox/projects/ktor/todolist-identity/Identity/bin/Debug/netcoreapp2.1/Identity.runtimeconfig.dev.json
+/Users/kevinjones/Dropbox/projects/ktor/todolist-identity/Identity/bin/Debug/netcoreapp2.1/Identity.dll
+/Users/kevinjones/Dropbox/projects/ktor/todolist-identity/Identity/bin/Debug/netcoreapp2.1/Identity.pdb
+/Users/kevinjones/Dropbox/projects/ktor/todolist-identity/Identity/obj/Debug/netcoreapp2.1/Identity.csprojAssemblyReference.cache
+/Users/kevinjones/Dropbox/projects/ktor/todolist-identity/Identity/obj/Debug/netcoreapp2.1/Identity.csproj.CoreCompileInputs.cache
+/Users/kevinjones/Dropbox/projects/ktor/todolist-identity/Identity/obj/Debug/netcoreapp2.1/Identity.RazorAssemblyInfo.cache
+/Users/kevinjones/Dropbox/projects/ktor/todolist-identity/Identity/obj/Debug/netcoreapp2.1/Identity.RazorAssemblyInfo.cs
+/Users/kevinjones/Dropbox/projects/ktor/todolist-identity/Identity/obj/Debug/netcoreapp2.1/Identity.AssemblyInfoInputs.cache
+/Users/kevinjones/Dropbox/projects/ktor/todolist-identity/Identity/obj/Debug/netcoreapp2.1/Identity.AssemblyInfo.cs
+/Users/kevinjones/Dropbox/projects/ktor/todolist-identity/Identity/obj/Debug/netcoreapp2.1/Identity.RazorTargetAssemblyInfo.cache
+/Users/kevinjones/Dropbox/projects/ktor/todolist-identity/Identity/obj/Debug/netcoreapp2.1/Identity.dll
+/Users/kevinjones/Dropbox/projects/ktor/todolist-identity/Identity/obj/Debug/netcoreapp2.1/Identity.pdb
