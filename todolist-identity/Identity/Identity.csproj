@@ -2,6 +2,7 @@
 
     <PropertyGroup>
         <TargetFramework>netcoreapp2.2</TargetFramework>
+        <RuntimeIdentifiers>osx-x64;linux-x64;win7-x64</RuntimeIdentifiers>
     </PropertyGroup>
 
     <ItemGroup>

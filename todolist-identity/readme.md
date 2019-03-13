@@ -1,3 +1,8 @@
+## To Build
+
+1. dotnet msbuild /t:PublishAll /p:Configuration=Release
+1. dotnet msbuild /t:PublishAll
+
 ## Certificates
 
 1. For the root cert
